@@ -46,9 +46,10 @@ jobs:
     - name: Azure Login
       uses: azure/login@v2
       with:
-        client-id: ${{ vars.ExampleApiByDorisFranse_CLIENT_ID_0B4D }}
-        tenant-id: ${{ vars.ExampleApiByDorisFranse_TENANT_ID_0B4D }}
-        subscription-id: ${{ vars.ExampleApiByDorisFranse_SUBSCRIPTION_ID_0B4D }}
+        # client-id: ${{ vars.ExampleApiByDorisFranse_CLIENT_ID_0B4D }}
+        # tenant-id: ${{ vars.ExampleApiByDorisFranse_TENANT_ID_0B4D }}
+        # subscription-id: ${{ vars.ExampleApiByDorisFranse_SUBSCRIPTION_ID_0B4D }}
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
     - name: Deploy to Azure WebApp
       uses: azure/webapps-deploy@v2
       with:
