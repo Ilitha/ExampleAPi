@@ -1,0 +1,814 @@
+﻿@page
+@model ExampleAPi.Pages.IndexModel
+@{
+    ViewData["Title"] = "Doris Franse - Portfolio";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .profile-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .profile-name {
+            font-size: 3em;
+            color: #667eea;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .linkedin-link {
+            display: inline-block;
+            background: #0077b5;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+            .linkedin-link:hover {
+                background: #005885;
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(0, 119, 181, 0.3);
+            }
+
+        .weather-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .weather-title {
+            font-size: 2em;
+            color: #667eea;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .weather-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+
+        .weather-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+            .weather-card:hover {
+                transform: translateY(-5px);
+            }
+
+        .weather-date {
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .weather-temp {
+            font-size: 2em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .weather-summary {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .content-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .content-title {
+            font-size: 2.5em;
+            color: #667eea;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .comparison-intro {
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .comparison-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+        }
+
+            .comparison-section h3 {
+                color: #667eea;
+                font-size: 1.5em;
+                margin-bottom: 15px;
+            }
+
+            .comparison-section ul {
+                list-style: none;
+                padding-left: 0;
+            }
+
+            .comparison-section li {
+                padding: 10px 0;
+                padding-left: 25px;
+                position: relative;
+                line-height: 1.6;
+            }
+
+                .comparison-section li::before {
+                    content: "→";
+                    position: absolute;
+                    left: 0;
+                    color: #667eea;
+                    font-weight: bold;
+                }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+            .comparison-table th {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 15px;
+                text-align: left;
+                font-size: 1.1em;
+            }
+
+            .comparison-table td {
+                padding: 15px;
+                border-bottom: 1px solid #e0e0e0;
+            }
+
+            .comparison-table tr:last-child td {
+                border-bottom: none;
+            }
+
+            .comparison-table tr:hover {
+                background: #f8f9fa;
+            }
+
+        .version-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .sts {
+            background: #ffd700;
+            color: #333;
+        }
+
+        .lts {
+            background: #4caf50;
+            color: white;
+        }
+
+        @@media (max-width: 768px) {
+            .profile-name {
+                font-size: 2em;
+            }
+
+            .weather-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-table {
+                font-size: 0.9em;
+            }
+
+            .content-section {
+                padding: 20px;
+            }
+        }
+
+        /* ADDED ONLY: autocomplete dropdown styles */
+        .autocomplete-wrap {
+            position: relative;
+            width: 100%;
+            max-width: 520px;
+        }
+
+        .autocomplete-list {
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            right: 0;
+            background: #fff;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            overflow: hidden;
+            z-index: 9999;
+            display: none;
+        }
+
+        .autocomplete-item {
+            padding: 12px 14px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+            .autocomplete-item:last-child {
+                border-bottom: none;
+            }
+
+            .autocomplete-item:hover {
+                background: #f8f9fa;
+            }
+
+        .autocomplete-main {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 2px;
+        }
+
+        .autocomplete-sub {
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Profile Section -->
+        <div class="profile-section">
+            <div style="margin-bottom: 20px;">
+                <i class="fas fa-user-circle" style="font-size: 80px; color: #667eea;"></i>
+            </div>
+            <h1 class="profile-name">Doris Franse</h1>
+            <p style="font-size: 1.3em; color: #666; margin-bottom: 20px;">
+                <i class="fas fa-code" style="color: #667eea;"></i> Software Developer & .NET Enthusiast
+            </p>
+            <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                <a href="https://www.linkedin.com/in/dorisfranse/" target="_blank" class="linkedin-link">
+                    <i class="fab fa-linkedin" style="margin-right: 8px;"></i>
+                    Connect on LinkedIn
+                </a>
+                <a href="https://github.com/Ilitha" target="_blank" class="linkedin-link" style="background: #333;">
+                    <i class="fab fa-github" style="margin-right: 8px;"></i>
+                    GitHub Profile
+                </a>
+            </div>
+        </div>
+
+        <!-- Weather Section -->
+        <div class="weather-section">
+            <h2 class="weather-title">
+                <i class="fas fa-cloud-sun" style="margin-right: 10px;"></i>
+                5-Day Weather Forecast
+            </h2>
+
+            <!-- ADDED ONLY: manual search + unit toggle + autocomplete dropdown (nothing removed) -->
+            <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-bottom:18px;">
+                <form method="get" id="manualLocationForm" style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:center; width:100%;">
+
+                    <div class="autocomplete-wrap">
+                        <input type="text"
+                               name="query"
+                               id="queryInput"
+                               value="@Model.LocationQuery"
+                               placeholder="Enter postal code / ZIP / city"
+                               autocomplete="off"
+                               style="width:100%; padding:10px 14px; border-radius:10px; border:1px solid #ddd; outline:none;" />
+
+                        <div id="autocompleteList" class="autocomplete-list"></div>
+                    </div>
+
+                    <input type="hidden" name="unit" id="unitField" value="@(Model.UseFahrenheit ? "F" : "C")" />
+
+                    <!-- These get filled when user clicks an autocomplete result -->
+                    <input type="hidden" name="latitude" id="latField" value="@(Model.CurrentLatitude != 0 ? Model.CurrentLatitude.ToString(System.Globalization.CultureInfo.InvariantCulture) : "")" />
+                    <input type="hidden" name="longitude" id="lonField" value="@(Model.CurrentLongitude != 0 ? Model.CurrentLongitude.ToString(System.Globalization.CultureInfo.InvariantCulture) : "")" />
+
+                    <button type="submit" class="linkedin-link" style="background:#667eea; cursor:pointer; border:none; margin:0;">
+                        Search
+                    </button>
+
+                    <div style="display:flex; border:1px solid #ddd; border-radius:999px; overflow:hidden;">
+                        <button type="button" id="btnC"
+                                style="padding:10px 14px; border:none; cursor:pointer; background:@(Model.UseFahrenheit ? "#fff" : "#667eea"); color:@(Model.UseFahrenheit ? "#333" : "#fff");">
+                            °C
+                        </button>
+                        <button type="button" id="btnF"
+                                style="padding:10px 14px; border:none; cursor:pointer; background:@(Model.UseFahrenheit ? "#667eea" : "#fff"); color:@(Model.UseFahrenheit ? "#fff" : "#333");">
+                            °F
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="locationButtonContainer" style="text-align: center; margin-bottom: 20px; display: none;">
+                <button id="getLocationBtn" class="linkedin-link" style="background: #667eea; cursor: pointer; border: none;">
+                    <i class="fas fa-location-dot" style="margin-right: 8px;"></i>
+                    Enable Location Access
+                </button>
+                <p id="locationStatus" style="margin-top: 10px; color: #666; font-size: 0.9em;"></p>
+            </div>
+
+            @if (!Model.WeatherForecasts.Any())
+            {
+                <div id="loadingIndicator" style="text-align: center; margin-bottom: 20px; color: #667eea;">
+                    <i class="fas fa-spinner fa-spin" style="font-size: 2em; margin-bottom: 10px;"></i>
+                    <p>Detecting your location...</p>
+                </div>
+            }
+
+            @if (Model.WeatherForecasts.Any())
+            {
+                <div style="text-align: center; margin-bottom: 15px; color: #333;">
+                    <i class="fas fa-map-marker-alt" style="color: #667eea;"></i>
+                    <strong>
+                        Location:
+                        @if (!string.IsNullOrWhiteSpace(Model.CityName))
+                        {
+                            @Model.CityName
+                        }
+                        else if (Model.CurrentLatitude != 0 && Model.CurrentLongitude != 0)
+                        {
+                            @($"{Model.CurrentLatitude:F2}°, {Model.CurrentLongitude:F2}°")
+                        }
+                        else
+                        {
+                            @("Unknown")
+                        }
+                    </strong>
+                </div>
+
+                <div class="weather-grid">
+                    @foreach (var forecast in Model.WeatherForecasts)
+                    {
+                        var weatherIcon = forecast.Summary?.ToLower() switch
+                        {
+                            var s when s.Contains("clear") => "fas fa-sun",
+                            var s when s.Contains("cloud") => "fas fa-cloud",
+                            var s when s.Contains("rain") => "fas fa-cloud-rain",
+                            var s when s.Contains("drizzle") => "fas fa-cloud-drizzle",
+                            var s when s.Contains("snow") => "fas fa-snowflake",
+                            var s when s.Contains("storm") || s.Contains("thunder") => "fas fa-cloud-bolt",
+                            var s when s.Contains("fog") => "fas fa-smog",
+                            var s when s.Contains("wind") => "fas fa-wind",
+                            _ => "fas fa-cloud-sun"
+                        };
+
+                        <div class="weather-card">
+                            <div class="weather-date">
+                                <i class="fas fa-calendar-day" style="margin-right: 5px; font-size: 0.9em;"></i>
+                                @forecast.Date.ToString("MMM dd")
+                            </div>
+                            <div style="font-size: 3em; margin: 15px 0;">
+                                <i class="@weatherIcon"></i>
+                            </div>
+
+                            <div class="weather-temp">
+                                <i class="fas fa-temperature-high" style="font-size: 0.7em; margin-right: 5px;"></i>
+                                @(Model.UseFahrenheit ? $"{forecast.TemperatureF}°F" : $"{forecast.TemperatureC}°C")
+                            </div>
+
+                            <div class="weather-summary">@forecast.Summary</div>
+
+                            <div style="font-size: 0.9em; margin-top: 8px; opacity: 0.8;">
+                                @(Model.UseFahrenheit ? $"{forecast.TemperatureC}°C" : $"{forecast.TemperatureF}°F")
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            }
+            else
+            {
+                <p id="noWeatherMessage" style="text-align: center; color: #666; display: none;">Unable to load weather data</p>
+            }
+        </div>
+
+        <!-- .NET Comparison Section -->
+        <div class="content-section">
+            <h2 class="content-title">
+                <i class="fab fa-microsoft" style="margin-right: 10px;"></i>
+                MAJOR DIFFERENCES: .NET 7 vs .NET 8 vs .NET 10
+            </h2>
+
+            <div class="comparison-section">
+                <h3>
+                    <i class="fas fa-shield-alt" style="margin-right: 8px;"></i>
+                    Support Lifecycle
+                </h3>
+                <p style="margin-bottom: 10px; font-style: italic; color: #666;">(This is usually the #1 deciding factor)</p>
+                <ul>
+                    <li><strong>.NET 7:</strong> <span class="version-badge sts">STS</span> Shorter support window</li>
+                    <li><strong>.NET 8:</strong> <span class="version-badge lts">LTS</span> Longer support window</li>
+                    <li><strong>.NET 10:</strong> <span class="version-badge lts">LTS</span> Longer support window</li>
+                </ul>
+            </div>
+
+            <div class="comparison-section">
+                <h3>
+                    <i class="fas fa-code" style="margin-right: 8px;"></i>
+                    Default C# Language Version
+                </h3>
+                <p style="margin-bottom: 10px; color: #666;">What you get "by default" when you target that .NET</p>
+                <ul>
+                    <li><strong>.NET 7</strong> → C# 11</li>
+                    <li><strong>.NET 8</strong> → C# 12</li>
+                    <li><strong>.NET 10</strong> → C# 14</li>
+                </ul>
+            </div>
+
+            <div class="comparison-section">
+                <h3>
+                    <i class="fas fa-rocket" style="margin-right: 8px;"></i>
+                    Runtime/Performance Focus
+                </h3>
+                <ul>
+                    <li><strong>.NET 7:</strong> Big performance push year-over-year; many JIT/GC and general runtime speedups</li>
+                    <li><strong>.NET 8:</strong> More performance + runtime/library improvements; notable for modern .NET patterns maturing (esp. web + native/AOT story)</li>
+                    <li><strong>.NET 10:</strong> Continues runtime/JIT improvements and adds more NativeAOT-related improvements; generally "latest LTS + newest runtime work"</li>
+                </ul>
+            </div>
+
+            <div class="comparison-section">
+                <h3>
+                    <i class="fas fa-globe" style="margin-right: 8px;"></i>
+                    ASP.NET Core / API Developer Experience
+                </h3>
+                <p style="margin-bottom: 10px; color: #666;">What you'll feel most day-to-day</p>
+                <ul>
+                    <li><strong>.NET 7:</strong> Mature platform with strong performance; solid baseline for Minimal APIs and modern hosting</li>
+                    <li><strong>.NET 8:</strong> Major Blazor/ASP.NET Core enhancements (full-stack Blazor positioning, many web stack improvements)</li>
+                    <li><strong>.NET 10:</strong> Further ASP.NET Core enhancements including Blazor improvements, OpenAPI enhancements, Minimal API updates, and Identity passkey support</li>
+                </ul>
+            </div>
+
+            <div class="comparison-section">
+                <h3>
+                    <i class="fas fa-arrow-up" style="margin-right: 8px;"></i>
+                    Upgrade Mindset
+                </h3>
+                <p style="margin-bottom: 10px; color: #666;">Practical considerations</p>
+                <ul>
+                    <li><strong>If you're on .NET 7:</strong> Move to .NET 8 or .NET 10 for supported lifecycle + newer tooling/runtime</li>
+                    <li><strong>If you want "stable long runway" today:</strong> Choose .NET 10 (LTS) unless you're constrained by hosting/platform/library compatibility</li>
+                    <li><strong>If you're already on .NET 8:</strong> Move to .NET 10 when you want the newer LTS + C# 14 + newest ASP.NET Core improvements</li>
+                </ul>
+            </div>
+
+            <h3 style="color: #667eea; font-size: 2em; margin-top: 40px; margin-bottom: 20px; text-align: center;">
+                <i class="fas fa-table" style="margin-right: 10px;"></i>
+                Quick Comparison Table
+            </h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Version</th>
+                        <th>Support</th>
+                        <th>C# Version</th>
+                        <th>Key Features</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>.NET 7</strong></td>
+                        <td><span class="version-badge sts">STS</span></td>
+                        <td>C# 11</td>
+                        <td>Baseline modern .NET APIs, strong perf year</td>
+                    </tr>
+                    <tr>
+                        <td><strong>.NET 8</strong></td>
+                        <td><span class="version-badge lts">LTS</span></td>
+                        <td>C# 12</td>
+                        <td>Significant ASP.NET Core/Blazor improvements + more perf</td>
+                    </tr>
+                    <tr>
+                        <td><strong>.NET 10</strong></td>
+                        <td><span class="version-badge lts">LTS</span></td>
+                        <td>C# 14</td>
+                        <td>Further runtime + ASP.NET Core upgrades (OpenAPI/Minimal APIs/Blazor/Passkeys)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+
+            // Unit toggle submit (added only)
+            const unitField = document.getElementById('unitField');
+            const btnC = document.getElementById('btnC');
+            const btnF = document.getElementById('btnF');
+            const manualForm = document.getElementById('manualLocationForm');
+
+            if (btnC && unitField && manualForm) {
+                btnC.addEventListener('click', function () {
+                    unitField.value = 'C';
+                    manualForm.submit();
+                });
+            }
+
+            if (btnF && unitField && manualForm) {
+                btnF.addEventListener('click', function () {
+                    unitField.value = 'F';
+                    manualForm.submit();
+                });
+            }
+
+            // Autocomplete (Open-Meteo Geocoding)
+            const queryInput = document.getElementById('queryInput');
+            const listEl = document.getElementById('autocompleteList');
+            const latField = document.getElementById('latField');
+            const lonField = document.getElementById('lonField');
+
+            let debounceTimer = null;
+            let activeIndex = -1;
+            let items = [];
+
+            function hideList() {
+                if (listEl) listEl.style.display = 'none';
+                items = [];
+                activeIndex = -1;
+                if (listEl) listEl.innerHTML = '';
+            }
+
+            function showList() {
+                if (listEl) listEl.style.display = 'block';
+            }
+
+            function setActive(idx) {
+                activeIndex = idx;
+                const children = listEl ? Array.from(listEl.children) : [];
+                children.forEach((c, i) => {
+                    c.style.background = (i === activeIndex) ? '#f0f3ff' : '#fff';
+                });
+            }
+
+            function renderResults(results) {
+                if (!listEl) return;
+
+                listEl.innerHTML = '';
+                items = results || [];
+
+                if (items.length === 0) {
+                    hideList();
+                    return;
+                }
+
+                items.forEach((r, idx) => {
+                    const name = r.name || '';
+                    const admin1 = r.admin1 || '';
+                    const country = r.country || '';
+                    const countryCode = (r.country_code || '').toUpperCase();
+                    const lat = r.latitude;
+                    const lon = r.longitude;
+
+                    const main = `${name}${admin1 ? ', ' + admin1 : ''}`;
+                    const sub = `${country}${countryCode ? ' (' + countryCode + ')' : ''} • ${lat.toFixed(4)}, ${lon.toFixed(4)}`;
+
+                    const div = document.createElement('div');
+                    div.className = 'autocomplete-item';
+                    div.innerHTML = `<div class="autocomplete-main">${main}</div><div class="autocomplete-sub">${sub}</div>`;
+
+                    div.addEventListener('mousedown', function (e) {
+                        // mousedown so it fires before input loses focus
+                        e.preventDefault();
+                        queryInput.value = `${name}${admin1 ? ', ' + admin1 : ''}, ${country}`;
+                        latField.value = String(lat);
+                        lonField.value = String(lon);
+                        hideList();
+                        manualForm.submit();
+                    });
+
+                    listEl.appendChild(div);
+                });
+
+                showList();
+                setActive(-1);
+            }
+
+            async function fetchPlaces(term) {
+                const q = term.trim();
+                if (q.length < 2) {
+                    hideList();
+                    return;
+                }
+
+                try {
+                    const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(q)}&count=8&language=en&format=json`;
+                    const res = await fetch(url);
+                    if (!res.ok) {
+                        hideList();
+                        return;
+                    }
+                    const data = await res.json();
+                    renderResults(data && data.results ? data.results : []);
+                } catch {
+                    hideList();
+                }
+            }
+
+            if (queryInput) {
+                queryInput.addEventListener('input', function () {
+                    // user is typing -> clear lat/lon so server uses query fallback if they just press Search
+                    latField.value = '';
+                    lonField.value = '';
+
+                    clearTimeout(debounceTimer);
+                    debounceTimer = setTimeout(() => fetchPlaces(queryInput.value), 250);
+                });
+
+                queryInput.addEventListener('keydown', function (e) {
+                    if (!items || items.length === 0) return;
+
+                    if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        const next = Math.min(activeIndex + 1, items.length - 1);
+                        setActive(next);
+                    } else if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        const prev = Math.max(activeIndex - 1, 0);
+                        setActive(prev);
+                    } else if (e.key === 'Enter') {
+                        if (activeIndex >= 0 && activeIndex < items.length) {
+                            e.preventDefault();
+                            const r = items[activeIndex];
+                            const name = r.name || '';
+                            const admin1 = r.admin1 || '';
+                            const country = r.country || '';
+                            queryInput.value = `${name}${admin1 ? ', ' + admin1 : ''}, ${country}`;
+                            latField.value = String(r.latitude);
+                            lonField.value = String(r.longitude);
+                            hideList();
+                            manualForm.submit();
+                        }
+                    } else if (e.key === 'Escape') {
+                        hideList();
+                    }
+                });
+
+                queryInput.addEventListener('blur', function () {
+                    // slight delay so click can register
+                    setTimeout(hideList, 150);
+                });
+
+                queryInput.addEventListener('focus', function () {
+                    if (items && items.length > 0) showList();
+                });
+            }
+
+            // Preserve unit/query when geolocation redirects (added only)
+            function buildRedirectUrl(lat, lon) {
+                const urlParams = new URLSearchParams(window.location.search);
+                const unit = urlParams.get('unit') || (unitField ? unitField.value : 'C');
+                const query = urlParams.get('query');
+
+                const next = new URLSearchParams();
+                next.set('latitude', lat);
+                next.set('longitude', lon);
+                next.set('unit', unit);
+                if (query) next.set('query', query);
+
+                return `/?${next.toString()}`;
+            }
+
+            // Existing geolocation UI logic (unchanged except redirect line)
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const buttonContainer = document.getElementById('locationButtonContainer');
+            const statusEl = document.getElementById('locationStatus');
+            const urlParams = new URLSearchParams(window.location.search);
+            const hasLocation = urlParams.has('latitude') && urlParams.has('longitude');
+
+            if (!hasLocation) {
+                if (loadingIndicator) loadingIndicator.style.display = 'none';
+                if (buttonContainer) buttonContainer.style.display = 'block';
+                if (statusEl) {
+                    statusEl.textContent = 'Click the button below to enable location and see your weather.';
+                    statusEl.style.color = '#667eea';
+                }
+            } else {
+                if (loadingIndicator) loadingIndicator.style.display = 'none';
+                if (buttonContainer) buttonContainer.style.display = 'none';
+                if (statusEl) statusEl.textContent = '';
+            }
+
+            const getLocationBtn = document.getElementById('getLocationBtn');
+            if (!getLocationBtn) return;
+
+            getLocationBtn.addEventListener('click', function() {
+                if (navigator.geolocation) {
+                    const loadingIndicator = document.getElementById('loadingIndicator');
+                    const buttonContainer = document.getElementById('locationButtonContainer');
+                    const statusEl = document.getElementById('locationStatus');
+
+                    if (loadingIndicator) loadingIndicator.style.display = 'block';
+                    if (buttonContainer) buttonContainer.style.display = 'none';
+                    if (statusEl) {
+                        statusEl.textContent = 'Requesting location permission...';
+                        statusEl.style.color = '#667eea';
+                    }
+
+                    navigator.geolocation.getCurrentPosition(
+                        function(position) {
+                            const lat = position.coords.latitude;
+                            const lon = position.coords.longitude;
+
+                            const validLat = typeof lat === 'number' && !Number.isNaN(lat);
+                            const validLon = typeof lon === 'number' && !Number.isNaN(lon);
+
+                            if (validLat && validLon) {
+                                window.location.replace(buildRedirectUrl(lat, lon));
+                            } else {
+                                if (loadingIndicator) loadingIndicator.style.display = 'none';
+                                if (buttonContainer) buttonContainer.style.display = 'block';
+                                if (statusEl) {
+                                    statusEl.textContent = 'Could not detect your location. Please try again.';
+                                    statusEl.style.color = '#d32f2f';
+                                }
+                            }
+                        },
+                        function(error) {
+                            if (loadingIndicator) loadingIndicator.style.display = 'none';
+                            if (buttonContainer) buttonContainer.style.display = 'block';
+                            let msg = 'Unable to detect your location.';
+
+                            if (error.code === error.PERMISSION_DENIED) msg = 'Location access denied. Please enable permissions and try again.';
+                            if (error.code === error.POSITION_UNAVAILABLE) msg = 'Location unavailable. Please try again.';
+                            if (error.code === error.TIMEOUT) msg = 'Location request timed out. Please try again.';
+
+                            if (statusEl) {
+                                statusEl.textContent = msg;
+                                statusEl.style.color = '#d32f2f';
+                            }
+                        },
+                        { enableHighAccuracy: false, timeout: 15000, maximumAge: 300000 }
+                    );
+                } else {
+                    const loadingIndicator = document.getElementById('loadingIndicator');
+                    const buttonContainer = document.getElementById('locationButtonContainer');
+                    const statusEl = document.getElementById('locationStatus');
+
+                    if (loadingIndicator) loadingIndicator.style.display = 'none';
+                    if (buttonContainer) buttonContainer.style.display = 'block';
+                    if (statusEl) {
+                        statusEl.textContent = 'Your browser does not support location detection.';
+                        statusEl.style.color = '#d32f2f';
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

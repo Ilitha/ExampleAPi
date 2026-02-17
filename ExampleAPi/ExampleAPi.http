@@ -1,0 +1,20 @@
+@ExampleAPi_HostAddress = http://localhost:5108
+
+GET {{ExampleAPi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+GET {{ExampleAPi_HostAddress}}/WeatherForecastByDorisFranse?latitude=52.52&longitude=13.41
+Accept: application/json
+
+###
+
+GET {{ExampleAPi_HostAddress}}/Index
+Accept: text/html
+
+###
+
+GET {{ExampleAPi_HostAddress}}/
+Accept: text/html
+
