@@ -9,9 +9,12 @@ public class WeatherForecastByDorisFranseController : ControllerBase
 {
     private readonly IWeatherService _weatherService;
 
-    public WeatherForecastByDorisFranseController(IWeatherService weatherService)
+    private readonly ILogger<WeatherForecastByDorisFranseController> _logger;
+
+    public WeatherForecastByDorisFranseController(IWeatherService weatherService, ILogger<WeatherForecastByDorisFranseController> logger)
     {
         _weatherService = weatherService;
+        _logger = logger;
     }
 
     [HttpGet(Name = "GetWeatherForecastByDorisFranse")]
@@ -26,10 +29,12 @@ public class WeatherForecastByDorisFranseController : ControllerBase
         }
         catch (HttpRequestException ex)
         {
+            _logger.LogError(ex, "Weather service unavailable");
             return StatusCode(503, $"Weather service unavailable: {ex.Message}");
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "An error occurred while fetching the weather forecast");
             return StatusCode(500, $"An error occurred: {ex.Message}");
         }
     }
