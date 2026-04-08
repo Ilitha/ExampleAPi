@@ -2,9 +2,7 @@
 
 name: Architecture PR Reviewer
 
-description:
-
-This agent performs pull request architecture review.
+description: This agent performs pull request architecture review.
 
 ---
 
