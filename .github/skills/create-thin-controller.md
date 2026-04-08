@@ -1,5 +1,3 @@
-# .github/skills/create-thin-controller.md
-
 # Skill: Create Thin Controller
 
 ## Purpose
