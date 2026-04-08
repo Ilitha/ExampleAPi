@@ -1,5 +1,3 @@
----
-
 name: Deployer In Chief
 description: Builds, validates, packages, and deploys the application to Azure using the repository’s approved deployment workflow, environment settings, and release safeguards.
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
