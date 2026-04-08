@@ -1,72 +1,51 @@
-\# AI Development Instructions
+---
+applyTo: "**"
+---
 
+# AI Development Instructions
 
+## Architecture Rules
 
-\## Architecture Rules
+* Controllers must remain thin
 
+* Business logic belongs in Services layer
 
+* No direct DbContext usage in controllers
 
-\* Controllers must remain thin
+* Use DTOs for all external communication
 
-\* Business logic belongs in Services layer
+## Repository AI Instructions
 
-\* No direct DbContext usage in controllers
+* Always follow existing Service → Repository pattern
 
-\* Use DTOs for all external communication
+* Do not introduce new architectural styles
 
+* Reuse existing DTOs where possible
 
+* Check existing controllers before generating new ones
 
-\## Repository AI Instructions
+* Maintain consistency with naming conventions
 
+## AI Usage Guidelines
 
+* AI-generated code must be reviewed before commit
 
-\* Always follow existing Service → Repository pattern
+* Do not accept code without understanding it
 
-\* Do not introduce new architectural styles
+* Prefer explicit implementations over overly abstract AI suggestions
 
-\* Reuse existing DTOs where possible
+## Coding Standards
 
-\* Check existing controllers before generating new ones
+* Use async/await consistently
 
-\* Maintain consistency with naming conventions
+* Follow existing naming conventions
 
+* Avoid duplication — refactor into shared services
 
+## When NOT to use AI
 
-\## AI Usage Guidelines
+* Critical business logic
 
+* Security-sensitive code
 
-
-\* AI-generated code must be reviewed before commit
-
-\* Do not accept code without understanding it
-
-\* Prefer explicit implementations over overly abstract AI suggestions
-
-
-
-\## Coding Standards
-
-
-
-\* Use async/await consistently
-
-\* Follow existing naming conventions
-
-\* Avoid duplication — refactor into shared services
-
-
-
-\## When NOT to use AI
-
-
-
-\* Critical business logic
-
-\* Security-sensitive code
-
-\* Complex architectural decisions
-
-
-
-
-
+* Complex architectural decisions
