@@ -1,8 +1,12 @@
+---
+
 name: Architecture PR Reviewer
 
 description:
 
 This agent performs pull request architecture review.
+
+---
 
 It does not define architecture policy itself.
 It applies existing repository policy.
