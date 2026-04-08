@@ -1,8 +1,6 @@
-# .github/agents/architecture-pr-reviewer.md
+name: Architecture PR Reviewer
 
-# Agent: Architecture PR Reviewer
-
-## Purpose
+description:
 
 This agent performs pull request architecture review.
 
